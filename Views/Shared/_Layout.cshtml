@@ -4,9 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BooksEcommerce</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BooksEcommerce.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Select2DropDown.css" />
 
     <!-- Datatable -->
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
@@ -14,6 +16,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <!-- Sweet Alert -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet" />
+    <!-- Select2  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -26,13 +31,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @* <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div> *@
+
                 <partial name="_LoginPartial" />
             </div>
         </nav>
@@ -44,7 +43,7 @@
     </div>
 
     <!-- Footer Always Stays at Bottom -->
-    <footer class="border-top text-muted bg-light py-2 mt-auto">
+    <footer class="border-top text-muted py-2 mt-3">
         <div class="container text-center">
             <div class="row">
                 <!-- Contact Section -->
@@ -87,11 +86,20 @@
     <!-- Font Awesome CDN (Include in your layout if not already) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
     <!-- Select2 DropDowm -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.js"></script>
 
     <script>
+
+        $(document).ready(function () {
+            $('select').select2({
+                placeholder: "-- Select an Category --",
+                allowClear: true,
+                width: '100%' // Ensures full width like form-control
+            });
+        });
+
         document.addEventListener("DOMContentLoaded", function () {
             var message = '@TempData["SuccessMessage"]';
             var redirectUrl = '@TempData["RedirectUrl"]';
