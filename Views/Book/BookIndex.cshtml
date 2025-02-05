@@ -1,0 +1,73 @@
+﻿@model IEnumerable<BooksEcommerce.Models.Book>
+@{
+    ViewData["Title"] = "BookIndex";
+}
+
+<h1>Books</h1>
+
+<p>
+    <a asp-controller="Book" asp-action="BookCreate" class="btn btn-primary">Create New</a>
+</p>
+
+<table id="booksTable" class="table table-striped mb-3">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publication Date</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>ISBN</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Author</td>
+                <td>@item.PublicationDate.ToShortDateString()</td>
+                <td>@item.Price</td>
+                <td>@item.Description</td>
+                <td>@item.ISBN</td>
+                <td>@item.Stock</td>
+                <td>@item.Category?.CategoryName</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@Url.Content("~/images/" + item.ImageUrl)" alt="Book Image" class="img-thumbnail" width="50" height="50" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="BookEdit" asp-controller="Book" asp-route-id="@item.BookId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="BookDelete" asp-controller="Book" asp-route-id="@item.BookId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+
+    <!-- Include jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#booksTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true
+            });
+        });
+    </script>
+
+}
+

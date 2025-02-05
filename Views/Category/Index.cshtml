@@ -1,0 +1,56 @@
+﻿@model List<BooksEcommerce.ViewModels.BookCategoryVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        @foreach (var category in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header text-white">
+                        <h5>@category.CategoryName</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">@category.Description</p>
+
+                        @if (category.Books != null && category.Books.Any())
+                        {
+                            <form method="post" asp-action="AddToCart" asp-controller="Cart">
+                                <div class="form-group">
+                                    <select class="form-control" id="bookDropdown" name="bookId" required>
+                                        <option value="">-- Select Book --</option>
+                                        @foreach (var book in category.Books)
+                                        {
+                                            <option value="@book.BookId">
+                                                @book.Title - $@book.Price
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="mt-3">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" />
+                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Account/Login" class="btn btn-primary">Login to Add to Cart</a>
+                                    }
+                                </div>
+                            </form>
+
+                        }
+                        else
+                        {
+                            <p class="text-danger">No books available in this category.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

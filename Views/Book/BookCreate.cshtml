@@ -1,0 +1,87 @@
+﻿@model BooksEcommerce.ViewModels.BookCategoryVM
+@{
+    ViewData["Title"] = "BookCreate ";
+}
+
+<div class="row justify-content-center ">
+    <div class="col-6 mt-5">
+                <h1>Create Book</h1>
+                <hr />
+                <form asp-controller="Book" asp-action="BookCreate" method="post" enctype="multipart/form-data">
+                    
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="form-group my-2">
+                        <label asp-for="Title" class="control-label my-2"></label>
+                        <input asp-for="Title" placeholder="Enter BookTitle" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label asp-for="Author" class="control-label my-2"></label>
+                        <input asp-for="Author" placeholder="Enter Author Name" class="form-control" />
+                        <span asp-validation-for="Author" class="text-danger"></span>
+                    </div>
+
+                     <div class="form-group my-2">
+                        <label asp-for="PublicationDate" class="control-label my-2"></label>
+                    <input value="@DateTime.Now.ToString("yyyy-MM-dd")" asp-for="PublicationDate" placeholder="Enter Publication Date" class="form-control" />
+                        <span asp-validation-for="PublicationDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label asp-for="Price" class="control-label my-2"></label>
+                        <input type="number" asp-for="Price" placeholder="Enter Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label asp-for="Stock" class="control-label my-2"></label>
+                        <input type="number" asp-for="Stock" placeholder="Enter Stock Quantity" class="form-control" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label asp-for="Description" class="control-label my-2"></label>
+                        <textarea asp-for="Description" placeholder="Enter Description" class="form-control" cols="4" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group my-2">
+                        <label asp-for="ISBN" class="control-label my-2"></label>
+                        <input asp-for="ISBN" placeholder="Enter ISBN Number" class="form-control" />
+                        <span asp-validation-for="ISBN" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CategoryId">Category</label>
+                        <select asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "CategoryId", "CategoryName"))" class="form-control">
+                            <option value="">-- Select Category --</option>
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="ImageFile" class="control-label my-2">Upload Image</label>
+                        <input type="file" id="ImageFile" name="ImageFile" class="form-control" accept="image/*" />
+                    </div>
+
+                    
+                    <div class="form-group my-5 offset-3">
+                        <input type="submit" value="Create" class=" w-50 btn btn-primary" />
+                    </div>
+                </form>
+                
+                <div>
+                    <a asp-controller="Book" asp-action="BookIndex" class="btn btn-outline-primary ">Back to List</a>
+                </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

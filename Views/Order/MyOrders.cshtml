@@ -1,0 +1,63 @@
+﻿@model List<BooksEcommerce.ViewModels.OrderDetailsVM>
+@{
+    ViewData["Title"] = "MyOrders";
+}
+
+<h2>My Orders</h2>
+
+@if (Model.Count == 0)
+{
+    <p>You have no orders.</p>
+}
+else
+{
+    <table class="table table-striped" id="orderTable">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Total Price</th>
+                <th>Books</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                    <td>$@order.TotalFinalPrice</td>
+                    <td>
+                        <ul>
+                            @foreach (var book in order.Books)
+                            {
+                                <li>@book.Title - @book.Quantity x $@book.Price</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@section scripts {
+
+    <!-- Include jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#booksTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true
+            });
+        });
+    </script>
+
+}

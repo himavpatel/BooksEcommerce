@@ -1,0 +1,24 @@
+﻿@model BooksEcommerce.ViewModels.UserProfileVM
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h2>Edit Profile</h2>
+
+<form asp-controller="Account" asp-action="UpdateProfile" method="post">
+    <div class="mb-3">
+        <label>Name:</label>
+        <input type="text" class="form-control" name="Name" value="@Model.Name" required />
+    </div>
+    <div class="mb-3">
+        <label>Address:</label>
+        <textarea class="form-control" name="Address" rows="3" required>@Model.Address</textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger mt-3">@ViewBag.Message</div>
+}

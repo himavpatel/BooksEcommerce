@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BooksEcommerce</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BooksEcommerce.styles.css" asp-append-version="true" />
+
+    <!-- Datatable -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <!-- Sweet Alert -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet" />
+
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Category" asp-action="AllBooks">BooksEcommerce</a>
+                
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @* <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div> *@
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <div class="container flex-grow-1" style="margin-top:70px;">
+        <main role="main" >
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer Always Stays at Bottom -->
+    <footer class="border-top text-muted bg-light py-2 mt-auto">
+        <div class="container text-center">
+            <div class="row">
+                <!-- Contact Section -->
+                <div class="col-md-4 my-2 mb-md-0">
+                    <i class="fas fa-phone-alt"></i> <strong>Contact:</strong> +1 234 567 890
+                </div>
+
+                <!-- Email Section -->
+                <div class="col-md-4 my-2 mb-md-0">
+                    <i class="fas fa-envelope"></i> <strong>Email:</strong>
+                    <a href="mailto:support@booksecommerce.com" class="text-decoration-none">support@booksecommerce.com</a>
+                </div>
+
+                <!-- Location Section -->
+                <div class="col-md-4 my-2">
+                    <i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> 123 Book St, Gujarat, India
+                </div>
+            </div>
+            <hr />
+            <div>
+                &copy; 2025 - BooksEcommerce | <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+  @*   <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - BooksEcommerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer> *@
+   
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Font Awesome CDN (Include in your layout if not already) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <!-- Select2 DropDowm -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var message = '@TempData["SuccessMessage"]';
+            var redirectUrl = '@TempData["RedirectUrl"]';
+
+            if (message) {
+                Swal.fire({
+                    title: "Success!",
+                    text: message,
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed && redirectUrl) {
+                        window.location.href = redirectUrl;
+                    }
+                });
+            }
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

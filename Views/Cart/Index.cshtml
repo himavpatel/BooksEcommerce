@@ -1,0 +1,81 @@
+﻿@model List<BooksEcommerce.ViewModels.CartItemVM>
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+
+<div class="container mt-4">
+    <h3>Shopping Cart</h3>
+    <hr />
+   
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Book Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Title
+                            @if (item.IsUnavailable)
+                            {
+                                <span class="text-danger font-weight-bold"> (Not Available)</span>
+                            }
+                        </td>
+                        <td>@item.CategoryName</td>
+                        <td>$@item.Price</td>
+                        <td>
+                            <form method="post" asp-action="UpdateQuantity" asp-controller="Cart" class="d-inline">
+                                <input type="hidden" name="bookId" value="@item.BookId" />
+                                <button type="submit" name="isIncrease" value="false" class="btn btn-outline-secondary">-</button>
+                                <span class="mx-2">@item.Quantity</span>
+                                <button type="submit" name="isIncrease" value="true" class="btn btn-outline-secondary">+</button>
+                            </form>
+                        </td>
+                        <td>$@item.TotalAmount</td>
+                        <td>
+                            <form method="post" asp-action="RemoveFromCart" asp-controller="Cart">
+                                <input type="hidden" name="bookId" value="@item.BookId" />
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h4 class="text-right">Total Price: <strong>$@ViewBag.TotalPrice</strong></h4>
+
+        <div class="d-flex justify-content-between">
+            <a asp-controller="Category" asp-action="AllBooks" class="btn btn-secondary">Continue Shopping</a>
+
+            <form method="post" asp-action="SaveOrder" asp-controller="Cart">
+                <button type="submit" class="btn btn-success">Checkout & Place Order</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <p>Your cart is empty. <a asp-controller="Category" asp-action="AllBooks">Browse books</a> to add items.</p>
+        </div>
+    }
+</div>

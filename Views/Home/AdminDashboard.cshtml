@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "AdminDashboard";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="mb-4">Admin Dashboard</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                  
+                    <div class="d-grid gap-3">
+                        <a asp-controller="Category" asp-action="ViewDetails" class="btn btn-primary">Category Details</a>
+                        <a href="@Url.Action("BookIndex", "Book")" class="btn btn-primary">Book Details</a>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

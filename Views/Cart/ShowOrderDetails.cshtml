@@ -1,0 +1,34 @@
+﻿@model BooksEcommerce.ViewModels.OrderDetailsVM
+
+<h2>Order Details</h2>
+<p><strong>User Name:</strong> @Model.Name</p>
+
+<p><strong>Email:</strong> @Model.Email</p>
+<p><strong>Order ID:</strong> @Model.OrderId</p>
+<p><strong>Order Date:</strong> @Model.OrderDate</p>
+<p><strong>Total Price:</strong> $@Model.TotalFinalPrice</p>
+
+<h3>Books in this Order:</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
+        {
+            <tr>
+                <td>@book.BookId</td>
+                <td>@book.Title</td>
+                <td>$@book.Price</td>
+                <td>@book.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("AllBooks", "Category")" class="btn btn-primary">Back to Home</a>

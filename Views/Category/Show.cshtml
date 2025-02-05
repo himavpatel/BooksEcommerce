@@ -1,0 +1,26 @@
+﻿@model List<BooksEcommerce.ViewModels.BookCategoryVM>
+
+@{
+    ViewData["Title"] = "All Categories";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        @foreach (var category in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>@category.CategoryName</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>@category.Description</p>
+                        <a asp-action="BookList" asp-controller="Book" asp-route-id="@category.CategoryId" class="btn btn-primary">
+                            Show Books
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
