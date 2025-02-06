@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BooksEcommerce.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Select2DropDown.css" />
+    <!-- css -->
 
     <!-- Datatable -->
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
@@ -92,13 +92,7 @@
 
     <script>
 
-        $(document).ready(function () {
-            $('select').select2({
-                placeholder: "-- Select an Category --",
-                allowClear: true,
-                width: '100%' // Ensures full width like form-control
-            });
-        });
+
 
         document.addEventListener("DOMContentLoaded", function () {
             var message = '@TempData["SuccessMessage"]';

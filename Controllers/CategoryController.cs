@@ -87,6 +87,17 @@ namespace BooksEcommerce.Controllers
             {
                 try
                 {
+                    // Check if the category already exists to prevent duplicate entries
+                    var existingCategory = await context.categories
+                       .AsNoTracking()
+                       .FirstOrDefaultAsync(c => c.CategoryName == category.CategoryName);
+
+                    if (existingCategory != null)
+                    {
+                        ModelState.AddModelError("", "This category already exists.");
+                        return View(category);
+                    }
+
                     await context.AddAsync(category);
                     await context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Category added successfully!";

@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Edit Book";
 }
+<link rel="stylesheet" href="~/css/Select2DropDown.css" />
 
 <div class="row justify-content-center ">
     <div class="col-6 mt-5">
@@ -87,6 +88,15 @@
 
 
 @section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('select').select2({
+                placeholder: "-- Select an Option --",
+                allowClear: true,
+                width: '100%' // Ensures full width like form-control
+            });
+        });
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

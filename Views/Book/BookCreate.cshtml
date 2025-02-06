@@ -2,12 +2,13 @@
 @{
     ViewData["Title"] = "BookCreate ";
 }
+<link rel="stylesheet" href="~/css/Select2DropDown.css" />
 
 <div class="row justify-content-center ">
     <div class="col-6 mt-5">
                 <h1>Create Book</h1>
                 <hr />
-                <form asp-controller="Book" asp-action="BookCreate" method="post" enctype="multipart/form-data">
+                <form id="bookForm" asp-controller="Book" asp-action="BookCreate" method="post" enctype="multipart/form-data">
                     
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     
@@ -68,7 +69,7 @@
 
                     
                     <div class="form-group my-5 offset-3">
-                        <input type="submit" value="Create" class=" w-50 btn btn-primary" />
+                        <input id="createBtn" type="submit" value="Create" class=" w-50 btn btn-primary" />
                     </div>
                 </form>
                 
@@ -81,6 +82,28 @@
 
 
 @section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('select').select2({
+                placeholder: "-- Select an Option --",
+                allowClear: true,
+                width: '100%' // Ensures full width like form-control
+            });
+
+            $("#bookForm").on("submit", function () {
+                var btn = $("#createBtn");
+
+                if (btn.prop("disabled")) {
+                    event.preventDefault(); // Stop multiple submissions
+                    return;
+                }
+
+                btn.prop("disabled", true).val("Processing...");
+            });
+        });
+
+    </script>
+
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

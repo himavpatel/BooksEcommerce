@@ -29,7 +29,7 @@
         @foreach (var book in Model)
         {
             <div class="col-md-3 mb-4 book-card">
-                <div class="card text-center">
+                <div class="card text-center align-items-stretch">
                     <img src="~/images/@book.ImageUrl" class="card-img-top img-fluid mx-auto mt-3" alt="@book.Title" style="height: 150px; width: 150px;">
                     <div class="card-body">
                         <h5 class="card-title">@book.Title</h5>
@@ -101,6 +101,9 @@
                 let end = start + booksPerPage;
                 books.slice(start, end).fadeIn();
 
+                // Scroll to top when new books are loaded
+                $("html, body").animate({ scrollTop: $(".container").offset().top }, "slow");
+
                 $("#prevButton").prop("disabled", currentPage === 0);
                 $("#nextButton").prop("disabled", currentPage >= totalPages - 1);
             }
@@ -149,18 +152,3 @@
     </script>
 }
 
-@* 
-              document.getElementById("filterButton").addEventListener("click", function () {
-            document.getElementById("categoryList").style.display = "block";
-        });
-
-        document.querySelectorAll(".category-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                var categoryId = this.getAttribute("data-id");
-                if (categoryId === "") {
-                    window.location.href = "/Category/AllBooks";
-                } else {
-                    window.location.href = "/Category/AllBooks?categoryId=" + categoryId;
-                }
-            });
-        }); *@

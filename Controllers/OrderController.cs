@@ -21,6 +21,7 @@ namespace BooksEcommerce.Controllers
         }
 
         // Method for users to see their own orders
+
         [Authorize]
         public async Task<IActionResult> MyOrders()
         {

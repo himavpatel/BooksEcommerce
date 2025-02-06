@@ -20,5 +20,13 @@ namespace BooksEcommerce.Data
 
         public DbSet<CartItem> cartitems { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Book>()
+                .HasIndex(b => b.ISBN)
+                .IsUnique(); // Ensure ISBN is unique
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

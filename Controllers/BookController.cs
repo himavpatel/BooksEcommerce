@@ -72,26 +72,55 @@ namespace BooksEcommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                string stringFileName = UploadImage(ImageFile);
-                var data = new Book()
+                try
                 {
-                    Title = book.Title,
-                    ISBN = book.ISBN,
-                    Price = book.Price,
-                    Stock = book.Stock,
-                    PublicationDate = book.PublicationDate,
-                    Description = book.Description,
-                    Author = book.Author,
-                    ImageUrl = stringFileName,
-                    CategoryId = book.CategoryId
-                };
-                _context.Add(data);
-                await _context.SaveChangesAsync();
-                
-                TempData["SuccessMessage"] = "Book added successfully!";
-                TempData["RedirectUrl"] = Url.Action("BookIndex", "Book");
+                    // Prevent duplicate book entry based on ISBN
+                    var existingBook = await _context.books
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(b => b.BookId == book.BookId);
 
-                return RedirectToAction(nameof(BookIndex));
+                    if (existingBook != null)
+                    {
+                        if (existingBook.BookId == book.BookId)
+                        {
+                            ModelState.AddModelError("", "A book with this Book ID already exists.");
+                        }
+
+                        if (existingBook.ISBN == book.ISBN)
+                        {
+                            ModelState.AddModelError("", "A book with this ISBN already exists.");
+                        }
+
+                        ViewData["CategoryId"] = new SelectList(_context.categories, "CategoryId", "CategoryName", book.CategoryId);
+                        return View(book);
+                    }
+
+                    string stringFileName = UploadImage(ImageFile);
+                    var data = new Book()
+                    {
+                        Title = book.Title,
+                        ISBN = book.ISBN,
+                        Price = book.Price,
+                        Stock = book.Stock,
+                        PublicationDate = book.PublicationDate,
+                        Description = book.Description,
+                        Author = book.Author,
+                        ImageUrl = stringFileName,
+                        CategoryId = book.CategoryId
+                    };
+                    _context.Add(data);
+                    await _context.SaveChangesAsync();
+                
+                    TempData["SuccessMessage"] = "Book added successfully!";
+                    TempData["RedirectUrl"] = Url.Action("BookIndex", "Book");
+
+                    return RedirectToAction(nameof(BookIndex));
+                
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "An error occurred: " + ex.Message);
+                }
             }
 
             ViewData["CategoryId"] = new SelectList(_context.categories, "CategoryId", "CategoryName", book.CategoryId);

@@ -51,16 +51,6 @@ namespace BooksEcommerce.Controllers
             var book = context.books.FirstOrDefault(b => b.BookId == bookId);
             if (book == null) return NotFound();
 
-            //// Calculate how many books are already in carts
-            //var totalCartQuantity = context.cartitems
-            //    .Where(c => c.BookId == bookId)
-            //    .Sum(c => c.Quantity);
-
-            //// Allow adding but show warning if out of stock
-            //if (totalCartQuantity >= book.Stock)
-            //{
-            //    TempData["WarningMessage"] = $"Warning: {book.Title} is out of stock!";
-            //}
 
             // Ensure cart is user-specific
             var cartItem = context.cartitems.FirstOrDefault(c => c.BookId == bookId && c.Id == userId);

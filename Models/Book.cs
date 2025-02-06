@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using BooksEcommerce.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace BooksEcommerce.Models
 {
