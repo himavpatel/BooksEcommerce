@@ -57,10 +57,11 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">@book.Title</h5>
+                                        <h5 class="modal-title">Book Description</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body text-start">
+                                        <p><strong>Title:</strong> @book.Title</p>
                                         <p><strong>Author:</strong> @book.Author</p>
                                         <p><strong>Description:</strong> @book.Description</p>
                                         <p><strong>Publication Date:</strong> @book.PublicationDate.ToString("yyyy-MM-dd")</p>

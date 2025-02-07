@@ -79,7 +79,7 @@ namespace BooksEcommerce.Controllers
         {
               var userId = GetUserId();
                var item = context.cartitems.FirstOrDefault(i => i.BookId == bookId && i.Id == userId);
-            //var item = context.cartitems.FirstOrDefault(i => i.BookId == bookId );
+            
             if (item != null)
             {
                 if (isIncrease)
@@ -194,7 +194,9 @@ namespace BooksEcommerce.Controllers
             var viewModel = new OrderDetailsVM
             {
                 Name = order.ApplicationUser.Name,
-                Email = order.ApplicationUser.Email,// Ensure safe access to Email
+                Email = order.ApplicationUser.Email,
+                PhoneNumber = order.ApplicationUser.PhoneNumber,
+                Address = order.ApplicationUser.Address,
                 OrderId = order.OrderId,
                 OrderDate = order.OrderDate,
                 TotalFinalPrice = order.TotalAmount,

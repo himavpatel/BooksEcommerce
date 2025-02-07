@@ -16,7 +16,10 @@ else
         <thead>
             <tr>
                 <th>Order ID</th>
+                <th>Name</th>
                 <th>User Email</th>
+                <th>Address</th>
+                <th>Phone Number</th>
                 <th>Date</th>
                 <th>Total Price</th>
                 <th>Books</th>
@@ -27,14 +30,17 @@ else
             {
                 <tr>
                     <td>@order.OrderId</td>
+                    <td>@order.Name</td>
                     <td>@order.Email</td>
+                    <td>@order.Address</td>
+                    <td>@order.PhoneNumber</td>
                     <td>@order.OrderDate.ToShortDateString()</td>
                     <td>$@order.TotalFinalPrice</td>
                     <td>
                         <ul>
                             @foreach (var book in order.Books)
                             {
-                                <li>@book.Title - @book.Quantity x $@book.Price</li>
+                                <li>@book.Title -<b>@book.Quantity x $@book.Price</b> </li>
                             }
                         </ul>
                     </td>
@@ -46,12 +52,13 @@ else
 
 @section scripts {
 
-    <!-- Include jQuery and DataTables JS -->
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
+
         $(document).ready(function () {
             $('#orderTable').DataTable({
                 "paging": true,
@@ -60,6 +67,7 @@ else
                 "info": true
             });
         });
+
     </script>
 
 }

@@ -43,6 +43,9 @@
         <div class="navbar-collapse collapse justify-content-between">
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
+                    <a class="nav-link text-dark " asp-area="" asp-controller="Category" asp-action="AllBooks">Home</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="MyOrders">My Orders</a>
                 </li>
                 <li class="nav-item">
@@ -55,18 +58,18 @@
         <div class="navbar-collapse collapse flex-row-reverse">
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle btn btn-outline-primary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    @User.Identity.Name
+                <a class="nav-link dropdown-toggle btn btn-outline-primary px-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    @user.Name 
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="min-width: auto;">
                     <li>
                         <form asp-action="DisplayProfile" asp-controller="Account" class="d-inline">
-                            <button class="btn btn-primary" type="submit" class="dropdown-item">View Profile</button>
+                            <button class="dropdown-item btn text-center" type="submit" style="width: 100%;">View Profile</button>
                         </form>
                     </li>
                     <li>
                         <form method="post" asp-action="Logout" asp-controller="Account" class="d-inline">
-                            <button class="btn btn-danger" type="submit" class="dropdown-item">Logout</button>
+                            <button class="dropdown-item bg-danger btn text-center" type="submit" style="width: 100%;">Logout</button>
                         </form>
                     </li>
                 </ul>

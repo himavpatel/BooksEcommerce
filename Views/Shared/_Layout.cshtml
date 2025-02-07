@@ -29,7 +29,7 @@
                 
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon "></span>
                 </button>
 
                 <partial name="_LoginPartial" />
@@ -92,8 +92,6 @@
 
     <script>
 
-
-
         document.addEventListener("DOMContentLoaded", function () {
             var message = '@TempData["SuccessMessage"]';
             var redirectUrl = '@TempData["RedirectUrl"]';
@@ -109,7 +107,7 @@
                         window.location.href = redirectUrl;
                     }
                 });
-            }
+            } 
         });
     </script>
 

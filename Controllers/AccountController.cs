@@ -273,6 +273,7 @@ namespace BooksEcommerce.Controllers
                 Username = user.UserName,
                 Email = user.Email,
                 Name = user.Name,
+                PhoneNumber = user.PhoneNumber,
                 Address = user.Address
             };
             return View(model);
@@ -290,6 +291,7 @@ namespace BooksEcommerce.Controllers
             var model = new UserProfileVM
             {
                 Name = user.Name,
+                PhoneNumber = user.PhoneNumber,
                 Address = user.Address
             };
             return View(model);
@@ -313,6 +315,7 @@ namespace BooksEcommerce.Controllers
             }
 
             user.Name = model.Name;
+            user.PhoneNumber = model.PhoneNumber;
             user.Address = model.Address;
 
             var result = await userManager.UpdateAsync(user);

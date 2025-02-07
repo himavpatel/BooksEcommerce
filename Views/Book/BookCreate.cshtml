@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="~/css/Select2DropDown.css" />
 
 <div class="row justify-content-center ">
-    <div class="col-6 mt-5">
+    <dv class="col-6 mt-5">
                 <h1>Create Book</h1>
                 <hr />
                 <form id="bookForm" asp-controller="Book" asp-action="BookCreate" method="post" enctype="multipart/form-data">
@@ -26,7 +26,7 @@
 
                      <div class="form-group my-2">
                         <label asp-for="PublicationDate" class="control-label my-2"></label>
-                    <input value="@DateTime.Now.ToString("yyyy-MM-dd")" asp-for="PublicationDate" placeholder="Enter Publication Date" class="form-control" />
+                        <input value="@DateTime.Now.ToString("yyyy-MM-dd")" asp-for="PublicationDate" placeholder="Enter Publication Date" class="form-control" />
                         <span asp-validation-for="PublicationDate" class="text-danger"></span>
                     </div>
 
@@ -65,16 +65,17 @@
                     <div class="form-group my-2">
                         <label for="ImageFile" class="control-label my-2">Upload Image</label>
                         <input type="file" id="ImageFile" name="ImageFile" class="form-control" accept="image/*" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
                     </div>
 
-                    
                     <div class="form-group my-5 offset-3">
-                        <input id="createBtn" type="submit" value="Create" class=" w-50 btn btn-primary" />
+                        <button class=" w-50 btn btn-primary" id="createBtn" onclick="submitForm()">Create</button>
+                       @*  <input id="createBtn" onclick="submitForm()" type="submit" value="Create" class=" w-50 btn btn-primary" /> *@
                     </div>
                 </form>
                 
                 <div>
-                    <a asp-controller="Book" asp-action="BookIndex" class="btn btn-outline-primary ">Back to List</a>
+                    <a asp-controller="Book" asp-action="BookIndex" class="btn btn-outline-primary">Back to List</a>
                 </div>
     </div>
 </div>
@@ -83,25 +84,32 @@
 
 @section Scripts {
     <script>
+        function submitForm() {
+            let button = document.getElementById("createBtn");
+            button.disabled = true;
+
+            document.getElementById("bookForm").submit();
+        }
         $(document).ready(function () {
             $('select').select2({
                 placeholder: "-- Select an Option --",
                 allowClear: true,
-                width: '100%' // Ensures full width like form-control
+                width: '100%'
             });
 
-            $("#bookForm").on("submit", function () {
-                var btn = $("#createBtn");
+            // $("#bookForm").on("submit", function () {
 
-                if (btn.prop("disabled")) {
-                    event.preventDefault(); // Stop multiple submissions
-                    return;
-                }
-
-                btn.prop("disabled", true).val("Processing...");
-            });
+            //     var btn = $("#createBtn");
+            //     if (btn.prop("disabled")) {
+            //         event.preventDefault(); // Stop multiple submissions
+            //         return;
+            //     }
+            //     btn.prop("disabled", true).val("Processing...");
+   
+            // });
         });
 
+        
     </script>
 
     @{

@@ -2,11 +2,12 @@
 
 <h2>Order Details</h2>
 <p><strong>User Name:</strong> @Model.Name</p>
-
 <p><strong>Email:</strong> @Model.Email</p>
+<p><strong>PhoneNumber:</strong> @Model.PhoneNumber</p>
+<p><strong>Address:</strong> @Model.Address</p>
 <p><strong>Order ID:</strong> @Model.OrderId</p>
 <p><strong>Order Date:</strong> @Model.OrderDate</p>
-<p><strong>Total Price:</strong> $@Model.TotalFinalPrice</p>
+@* <p><strong>Total Price:</strong> $@Model.TotalFinalPrice</p> *@
 
 <h3>Books in this Order:</h3>
 <table class="table">
@@ -30,5 +31,7 @@
         }
     </tbody>
 </table>
+
+<h2><strong>Total Price:</strong> $@Model.TotalFinalPrice</h2>
 
 <a href="@Url.Action("AllBooks", "Category")" class="btn btn-primary">Back to Home</a>

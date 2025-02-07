@@ -65,13 +65,24 @@ namespace BooksEcommerce.Controllers
             return View(model);
         }
 
+
         // POST: Book/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BookCreate(BookCategoryVM book, IFormFile ImageFile)
         {
-            if (ModelState.IsValid)
+            if (ImageFile == null)
             {
+                ModelState.AddModelError("ImageFile", "Please upload an image.");
+            }
+
+            //  if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                book.Categories = _context.categories.ToList();
+                return View(book);
+            }
+
                 try
                 {
                     // Prevent duplicate book entry based on ISBN
@@ -110,21 +121,21 @@ namespace BooksEcommerce.Controllers
                     };
                     _context.Add(data);
                     await _context.SaveChangesAsync();
-                
+
                     TempData["SuccessMessage"] = "Book added successfully!";
                     TempData["RedirectUrl"] = Url.Action("BookIndex", "Book");
 
                     return RedirectToAction(nameof(BookIndex));
-                
+
                 }
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", "An error occurred: " + ex.Message);
+                    book.Categories = _context.categories.ToList();
+                    return View(book);
                 }
-            }
 
-            ViewData["CategoryId"] = new SelectList(_context.categories, "CategoryId", "CategoryName", book.CategoryId);
-            return View(book);
+
         }
 
         // Helper method to handle file upload
@@ -246,6 +257,7 @@ namespace BooksEcommerce.Controllers
                 BookId = book.BookId,
                 Title = book.Title,
                 Author = book.Author,
+                Stock = book.Stock,
                 Description = book.Description,
                 ISBN = book.ISBN,
                 PublicationDate = book.PublicationDate,

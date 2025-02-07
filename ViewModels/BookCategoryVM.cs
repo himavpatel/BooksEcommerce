@@ -24,16 +24,18 @@ namespace BooksEcommerce.ViewModels
         [Required]
         public string? ISBN { get; set; }
 
+        [Required]
         [StringLength(500)]
         public string? Description { get; set; }
 
         public string? ImageUrl { get; set; }
 
+      
         public IFormFile? ImageFile { get; set; }
 
         public int Quantity { get; set; }
 
-
+        [Required]
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public string? CategoryName { get; set; }
@@ -42,6 +44,7 @@ namespace BooksEcommerce.ViewModels
 
         public List<Book>? Books { get; set; }
 
+        [Required]
         public int Stock { get; set; }
     }
 }

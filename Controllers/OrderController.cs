@@ -71,6 +71,9 @@ namespace BooksEcommerce.Controllers
                 OrderId = o.OrderId,
                 OrderDate = o.OrderDate,
                 TotalFinalPrice = o.TotalAmount,
+                Name = o.ApplicationUser.Name,
+                Address = o.ApplicationUser.Address,
+                PhoneNumber = o.ApplicationUser.PhoneNumber,
                 Email = o.ApplicationUser?.Email ?? "Unknown",
                 Books = o.OrderDetails.Select(od => new BookCategoryVM
                 {
